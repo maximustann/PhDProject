@@ -1,0 +1,90 @@
+library(ggplot2)
+library(reshape2)
+avePm <- function(testCase = 1){
+	run <- 30
+	vmTypeList <- c("five", "seven", "ten")
+	testCaseList <- c("Container100", "Container200", "Container500", "Container1000")
+	base <- "/local/scratch/tanboxi/staticContainerAllocation/"
+
+	fileName <- "/aveNumOfPm.csv"
+	noOfVm <- 1
+	cecEnergyPath <- paste(base, "cecGA/", vmTypeList[noOfVm], "/", testCaseList[testCase], fileName, sep="")
+	dualPermutationEnergyPath <- paste(base, "dualPermutation/", vmTypeList[noOfVm], "/", testCaseList[testCase], fileName , sep="")
+	bestFitEnergyPath <- paste(base, "bestFitDescending/", vmTypeList[noOfVm], "/", testCaseList[testCase], fileName , sep="")
+
+	cecEnergyFive <- unlist(read.csv(cecEnergyPath, header=F, sep=','))
+	cecAveEnergyFive <- cecEnergyFive[1]
+	cecSdEnergyFive <- cecEnergyFive[2]
+
+	dualPermutationEnergyFive <- unlist(read.csv(dualPermutationEnergyPath, header=F, sep=','))
+	dualAveEnergyFive <- dualPermutationEnergyFive[1]
+	dualSdEnergyFive <- dualPermutationEnergyFive[2]
+
+
+	bestEnergyFive <- unlist(read.csv(bestFitEnergyPath, header=F, sep=','))
+	bestAveEnergyFive <- bestEnergyFive[1]
+	bestSdEnergyFive <- 0
+
+
+	noOfVm <- 2
+	cecEnergyPath <- paste(base, "cecGA/", vmTypeList[noOfVm], "/", testCaseList[testCase], fileName , sep="")
+	dualPermutationEnergyPath <- paste(base, "dualPermutation/", vmTypeList[noOfVm], "/", testCaseList[testCase], fileName , sep="")
+	bestFitEnergyPath <- paste(base, "bestFitDescending/", vmTypeList[noOfVm], "/", testCaseList[testCase], fileName , sep="")
+
+	cecEnergySeven <- unlist(read.csv(cecEnergyPath, header=F, sep=','))
+	cecAveEnergySeven <- cecEnergySeven[1]
+	cecSdEnergySeven <- cecEnergySeven[2]
+
+	dualPermutationEnergySeven <- unlist(read.csv(dualPermutationEnergyPath, header=F, sep=','))
+	dualAveEnergySeven <- dualPermutationEnergySeven[1]
+	dualSdEnergySeven <- dualPermutationEnergySeven[2]
+
+	bestAveEnergySeven <- bestEnergyFive
+	bestSdEnergySeven <- 0
+
+	noOfVm <- 3
+	cecEnergyPath <- paste(base, "cecGA/", vmTypeList[noOfVm], "/", testCaseList[testCase], fileName, sep="")
+	dualPermutationEnergyPath <- paste(base, "dualPermutation/", vmTypeList[noOfVm], "/", testCaseList[testCase], fileName , sep="")
+	bestFitEnergyPath <- paste(base, "bestFitDescending/", vmTypeList[noOfVm], "/", testCaseList[testCase], fileName , sep="")
+
+	cecEnergyTen <- unlist(read.csv(cecEnergyPath, header=F, sep=','))
+	cecAveEnergyTen <- cecEnergyTen[1]
+	cecSdEnergyTen <- cecEnergyTen[2]
+
+	dualPermutationEnergyTen <- unlist(read.csv(dualPermutationEnergyPath, header=F, sep=','))
+	dualAveEnergyTen <- dualPermutationEnergyTen[1]
+	dualSdEnergyTen <- dualPermutationEnergyTen[2]
+
+	bestAveEnergyTen <- bestAveEnergyFive
+	bestSdEnergyTen <- 0
+
+
+	aveEnergy <- c(cecAveEnergyFive, cecAveEnergySeven, cecAveEnergyTen, dualAveEnergyFive, dualAveEnergySeven, dualAveEnergyTen, rep(bestAveEnergyFive, 3))
+	#sdEnergy <- c(cecSdEnergyFive, cecSdEnergySeven, cecSdEnergyTen, dualSdEnergyFive, dualSdEnergySeven, dualSdEnergyTen, bestSdEnergyFive, bestSdEnergySeven, bestSdEnergyTen)
+
+
+
+	algorithm <- c(rep("single chromosome GA", 3), rep("dual chromosome GA", 3), rep("BestFit Descending", 3))
+	#noOfVms <- rep(c("Five", "Seven", "Ten"), 3)
+
+	minimum <- min(aveEnergy)
+	maximum <- max(aveEnergy)
+	
+	x_axis <- c("x", "y", "z")
+	data <- data.frame(x=x_axis, y = aveEnergy, algorithm)
+
+
+	#names <- c("Five", "Seven", "Ten")
+	#data.m <- melt(data, id.vars='names')
+
+	p <- ggplot(data, aes(x=x, y=y)) + geom_bar(stat="identity", width = 0.3, aes(fill=algorithm), position=position_dodge()) + scale_x_discrete() + scale_fill_brewer(palette="Set1") + xlab("Number of VM types") + ylab("Average number of used PMs") + theme(axis.text = element_text(size = 40, face="bold"), legend.text = element_text(size=45, face="bold"), legend.title=element_text(""), axis.title=element_text(size=45, face="bold"), legend.position=c(0.5, 0.2))
+
+	
+	p
+	ggsave("../noPM.png",height=10, width=10)
+	ggsave("../noPM.eps", height=10, width=10)
+
+}
+
+
+

@@ -1,0 +1,53 @@
+# general parameters
+run=30
+seed=2333
+
+# dual permutation GA parameters
+dual_ubound=2
+dual_lbound=0
+dual_crossoverRate=0.7
+dual_mutationRate=0.1
+dual_optimization=0
+dual_tournamentSize=7
+dual_eliteSize=5
+dual_popSize=100
+dual_maxGen=600
+
+# group-based GA parameters
+group_ubound=2
+group_lbound=0
+group_crossoverRate=0.7
+group_mutationRate=0.1
+group_optimization=0
+group_tournamentSize=7
+group_eliteSize=5
+group_popSize=100
+group_maxGen=400
+
+
+# problem parameters
+k=0.7
+vmCpuOverheadRate=0.1
+vmMemOverhead=200
+numOfVmTypesNames=ten
+numOfVmTypes=10
+# Not balanced
+balancedOrNot=LVMnePM
+testCaseSize=200
+testCaseName=Container200
+
+# test case addresses
+base=/home/tanboxi/IdeaProjects/MaxTan/data
+pmSize=PMConfig_small.csv
+
+# result addresses
+resultBase=./
+
+energyFile=energy.csv
+aveEnergyFile=aveEnergy.csv
+aveCpuMemUtilFile=aveCpuMemUtil.csv
+wastedResourceFile=wastedResource.csv
+aveNumOfPmFile=aveNumOfPm.csv
+aveNumOfVmFile=aveNumOfVm.csv
+convergenceCurveFile=convergenceCurve.csv
+aveTimeFile=aveTime.csv

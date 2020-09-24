@@ -1,0 +1,20 @@
+#!/bin/tcsh 
+
+if($1 == '' || $2 == '' || $3 == '') then 
+	echo 'Usage ./collect.sh [groupGA | dualPermutation | cecGA] [ten | twenty] [200 | 500 | 1000 | 1500]'
+	exit
+endif
+
+mkdir -p ../$1/$2/Container$3/
+
+./collectEnergy.sh $1 $2 $3
+./collectPm.sh $1 $2 $3
+./collectVm.sh $1 $2 $3
+./collectTime.sh $1 $2 $3
+./collectUtil.sh $1 $2 $3
+./collectWaste.sh $1 $2 $3
+./collectConvergence.sh $1 $2 $3
+
+
+
+#echo $algPath

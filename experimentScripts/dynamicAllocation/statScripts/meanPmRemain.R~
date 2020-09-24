@@ -1,0 +1,60 @@
+cat('Usage: meanPmRemain(base) \n')
+meanPmRemain <- function(base){
+	simulation <- sample(seq(0, 49), 1)
+	justFitSubPath <- paste(base, '/justFitSub/', simulation, '/pmStatus.csv', sep='')
+	evo1Path <- paste(base, '/evoContainerLevel/', sep='')
+	evo2Path <- paste(base, '/evoTwoLevels/', sep='')
+	
+	justFitSub <- read.csv(justFitSubPath, header=F)
+	justFitSub_pmCpuRemain <- mean(justFitSub[, 3])
+	justFitSub_pmMemRemain <- mean(justFitSub[, 4])
+	justFitSub_pmCpuRemainSd <- sd(justFitSub[, 3])
+	justFitSub_pmMemRemainSd <- sd(justFitSub[, 4])
+	
+
+	twoLevelRuleAverage <- vector()
+	for(j in seq(0, 49)){
+		simulationUtil <- 0
+		for(i in seq(0, 29)){
+			simulationPath <- paste(evo2Path, 'evo', i, '/', j, '/pmStatus.csv', sep='')
+			simulationData <- read.csv(simulationPath, header = F)
+			simulationUtil <- simulationUtil + c(mean(simulationData[, 3]), mean(simulationData[, 4]))
+		}
+		twoLevelRuleAverage <- rbind(twoLevelRuleAverage, simulationUtil / 30)
+		#twoLevelRule <- twoLevelRule + simulationUtil
+	}
+
+	oneLevelRuleAverage <- vector()
+	for(j in seq(0, 49)){
+		simulationUtil <- 0
+		for(i in seq(0, 29)){
+			simulationPath <- paste(evo1Path, 'evo', i, '/', j, '/pmStatus.csv', sep='')
+			simulationData <- read.csv(simulationPath, header = F)
+			simulationUtil <- simulationUtil + c(mean(simulationData[, 3]), mean(simulationData[, 4]))
+		}
+		oneLevelRuleAverage <- rbind(oneLevelRuleAverage, simulationUtil / 30)
+		#twoLevelRule <- twoLevelRule + simulationUtil
+	}
+
+	cat('cpu mean: ', mean(twoLevelRuleAverage[, 1]), " ,cpu sd: ", sd(twoLevelRuleAverage[, 1]), '\n')
+	cat('mem mean: ', mean(twoLevelRuleAverage[, 2]), " ,mem sd: ", sd(twoLevelRuleAverage[, 2]), '\n')
+	twoLevelRuleCpuMeanSd <- c(mean(twoLevelRuleAverage[, 1]), sd(twoLevelRuleAverage[, 1]))
+	twoLevelRuleMemMeanSd <- c(mean(twoLevelRuleAverage[, 2]), sd(twoLevelRuleAverage[, 2]))
+
+	cat('one level: \n')
+	cat('cpu mean: ', mean(oneLevelRuleAverage[, 1]), " ,cpu sd: ", sd(oneLevelRuleAverage[, 1]), '\n')
+	cat('mem mean: ', mean(oneLevelRuleAverage[, 2]), " ,mem sd: ", sd(oneLevelRuleAverage[, 2]), '\n')
+	oneLevelRuleCpuMeanSd <- c(mean(oneLevelRuleAverage[, 1]), sd(oneLevelRuleAverage[, 1]))
+	oneLevelRuleMemMeanSd <- c(mean(oneLevelRuleAverage[, 2]), sd(oneLevelRuleAverage[, 2]))
+
+	cat('justFitSub: \n')
+	cat('cpu mean: ', justFitSub_pmCpuRemain, ', cpu sd: ', justFitSub_pmCpuRemainSd, '\n')
+	cat('mem mean: ', justFitSub_pmMemRemain, ', mem sd: ', justFitSub_pmMemRemainSd, '\n')
+
+
+	data <- rbind(c(justFitSub_pmCpuRemain, justFitSub_pmCpuRemainSd, justFitSub_pmMemRemain, justFitSub_pmMemRemainSd), c(oneLevelRuleCpuMeanSd, oneLevelRuleMemMeanSd), c(twoLevelRuleCpuMeanSd, twoLevelRuleMemMeanSd))
+	
+	#data <- rbind(c(justFitSub_pmCpuRemain, justFitSub_pmMemRemain), c(oneLevelRuleAverage[1], oneLevelRuleAverage[2]), c(twoLevelRuleAverage[1], twoLevelRuleAverage[2]))
+	write.table(data, paste(base, "/pmRemain.csv", sep=''), quote=F, row.names=F, col.names=F, sep=',')
+}
+

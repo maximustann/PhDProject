@@ -1,0 +1,17 @@
+cat('Usage: stat("groupGA", "mixedGA", "vmSize", "containerSize")\n')
+stat <- function(alg1, alg2, vmSize, containerSize){
+	alg1Path <- paste('../', alg1, '/', vmSize, '/Container', containerSize, '/energy.csv', sep='')
+	alg2Path <- paste('../', alg2, '/', vmSize, '/Container', containerSize, '/energy.csv', sep='')
+	
+	alg1Data <- unlist(read.csv(alg1Path, header=F))
+	alg2Data <- unlist(read.csv(alg2Path, header=F))
+
+	
+	output <- ''
+	output <- c(output, capture.output(cat(paste(alg1, ' - ', alg2, '\n', sep=''))))
+	output <- c(output, capture.output(print(alg1Data - alg2Data)))
+	output <- c(output, capture.output(print(wilcox.test(alg1Data, alg2Data, paired=F))))
+	output <- c(output, capture.output(print(t.test(alg1Data, alg2Data, paired=F))))
+	writeLines(output, paste('../', alg1, '/', vmSize, '/Container', containerSize, '/', alg1, 'vs', alg2, '.txt', sep=''))
+
+}

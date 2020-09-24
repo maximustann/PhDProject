@@ -1,0 +1,60 @@
+library(ggplot2)
+#library(lubridate)
+library(scales)
+cat("Usage: energyIncreasing(base, run, numOfContainer) \n")
+
+energyIncreasing <- function(base, run, numOfContainer){
+	#theme_set(theme_bw())
+	#justfitPath <- paste(base, 'justFitSub/', run, '/energy.csv', sep='')
+	evoTwoLevels <- list()
+	for(i in seq(0, 29)){
+		evoPath <- paste(base, 'evoTwoLevels/evo', i, '/', run, '/energy.csv', sep='')
+		evoData <- unlist(read.csv(evoPath, header=F))
+		evoTwoLevels[[i+1]] <- evoData
+	}
+	evoTwoSum <- evoTwoLevels[[1]]
+	for(i in seq(2, 30)){
+		evoTwoSum <- evoTwoSum + evoTwoLevels[[i]]
+	}
+	evoTwoAverage <- evoTwoSum / 30
+	evoTwoAverage <- evoTwoAverage
+
+	evoOneLevel <- list()
+	for(i in seq(0, 29)){
+	
+		evoPath <- paste(base, 'evoContainerLevel/evo', i, '/', run, '/energy.csv', sep='')
+		evoData <- unlist(read.csv(evoPath, header=F))
+		evoOneLevel[[i+1]] <- evoData
+	}
+
+	evoOneSum <- evoOneLevel[[1]]
+	for(i in seq(2, 30)){
+		evoOneSum <- evoOneSum + evoOneLevel[[i]]
+	}
+	evoOneAverage <- evoOneSum / 30
+	evoOneAverage <- evoOneAverage 
+	
+	#justFitSub <- unlist(read.csv(justfitPath, header=F))
+	evoOneAverage <- unlist(evoOneAverage)
+	evoTwoAverage <- unlist(evoTwoAverage)
+
+	#maximum <- max(c(justFitSub, evoOneAverage, evoTwoAverage))
+	#minimum <- min(c(justFitSub, evoOneAverage, evoTwoAverage))
+
+	maximum <- max(c(evoOneAverage, evoTwoAverage))
+	minimum <- min(c(evoOneAverage, evoTwoAverage))
+
+	mark <- rep(seq(1, numOfContainer+1), 2)
+	#labels <- c(rep('x', numOfContainer+1), rep('y', numOfContainer+1), rep('z', numOfContainer+1))
+	labels <- factor(c(rep('aaaaaaaa', numOfContainer+1), rep('bbbbbbbb', numOfContainer+1)))
+	#data <- data.frame(label=labels, mark=mark, SlopeOfIncrement=c(justFitSub, evoOneAverage, evoTwoAverage))
+	data <- data.frame(label=labels, mark=mark, SlopeOfIncrement=c(evoOneAverage, evoTwoAverage))
+
+	p <- ggplot(data=data, aes(x=mark, y=SlopeOfIncrement, fill=label)) + geom_line(aes(col=label), size=1.5) + scale_color_manual(values=c('#86b3dd', '#812c2c')) + labs(x='Container', y='Energy consumption') + xlim(2000, 2500) + ylim(17000, 23000)+
+		theme(panel.background = element_rect(fill='#eaeaea'), panel.grid.minor=element_line(color='#4d5566'), panel.grid.major=element_line(color='#bdbdbd'), plot.title=element_text(size=50), axis.title=element_text(size=50, color='#555555'), axis.title.y=element_text(vjust=1, angle=90, face="bold"), axis.title.x = element_text(hjust = 0.5, face="bold"), axis.text.x = element_text(size=30), axis.text.y=element_text(size=30, angle=90), legend.position="bottom", legend.title=element_blank(), legend.text=element_text(size=40))
+	p
+	ggsave(paste(base, "/energyIncreasing_run_evo", run, ".png", sep=''), height=10, width=10)
+	ggsave(paste(base, "/energyIncreasing_run_evo", run, ".eps", sep=''), height=10, width=10)
+}
+
+

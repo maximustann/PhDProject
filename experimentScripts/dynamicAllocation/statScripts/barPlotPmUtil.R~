@@ -1,0 +1,27 @@
+library(ggplot2)
+
+cat('Usage: barPlotPm(type: 0 = remain, 1 = util) \n')
+barPlotPm <- function(type = 0){
+	if(type != 0 || type != 1){
+		cat("type should be 0 or 1! \n")
+		exit()
+	}
+	choice <- c('pmRemain.csv', 'pmUtil.csv')
+	base <- "/local/scratch/tanboxi/containerAllocationResults/twoLevels"
+	container80path <- paste(base, 'Container80_realData_smallPM_OS5_tenVM/', choice[type], sep='')
+	container200path <- paste(base, 'Container200_realData_smallPM_OS5_tenVM/', choice[type], sep='')
+	container500path <- paste(base, 'Container500_realData_smallPM_OS5_tenVM/', choice[type], sep='')
+
+	container80 <- read.csv(container80path, header=F, sep=',')
+	container200 <- read.csv(container200path, header=F, sep=',')
+	container500 <- read.csv(container500path, header=F, sep=',')
+
+	
+	print(container80)
+	print('-------')
+	print(container200)
+	print('-------')
+	print(container500)
+	
+}
+

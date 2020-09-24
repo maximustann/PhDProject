@@ -1,0 +1,49 @@
+library(ggplot2)
+
+cat('Usage: boxplotEnergy(vmSize="twenty", containerSize=1000) \n')
+boxplotEnergy <- function(vmSize, containerSize){
+	base <- "../"
+	run <- 40
+	alg1 <- "ffBfFF"
+	alg2 <- "dualPermutationNF"
+	#alg3 <- "dualPermutationFF"
+	alg4 <- "groupGA"
+
+	alg1Path <- paste(base, alg1, '/', vmSize, "/Container", containerSize, "/energy.csv", sep='')
+	alg2Path <- paste(base, alg2, '/', vmSize, "/Container", containerSize, "/energy.csv", sep='')
+	#alg3Path <- paste(base, alg3, '/', vmSize, "/Container", containerSize, "/energy.csv", sep='')
+	alg4Path <- paste(base, alg4, '/', vmSize, "/Container", containerSize, "/energy.csv", sep='')
+
+	alg1data <- read.table(alg1Path)
+
+	# repeat the deterministic results
+	for(i in seq(run - 1)){
+		alg1data <- rbind(alg1data, alg1data[1, ])
+	}
+
+
+	alg2data <- read.table(alg2Path)
+	#alg3data <- read.table(alg3Path)
+	alg4data <- read.table(alg4Path)
+
+	alg1data <- cbind(alg1data, alg1)
+	alg2data <- cbind(alg2data, alg2)
+	#alg3data <- cbind(alg3data, alg3)
+	alg4data <- cbind(alg4data, alg4)
+
+	colnames(alg1data) <- c("energy", "algorithm")
+	colnames(alg2data) <- c("energy", "algorithm")
+	#colnames(alg3data) <- c("energy", "algorithm")
+	colnames(alg4data) <- c("energy", "algorithm")
+
+	data <- rbind(alg1data, alg2data, alg4data)
+	data$algorithm <- as.factor(data$algorithm)
+
+
+	p <- ggplot(data, aes(x=algorithm, y=energy, fill=algorithm)) + 
+		geom_boxplot(outlier.colour="red", outlier.shape=8, outlier.size=4) + 
+		scale_color_brewer(palette="Set1") + 
+		theme(legend.position="bottom")
+	p
+
+}

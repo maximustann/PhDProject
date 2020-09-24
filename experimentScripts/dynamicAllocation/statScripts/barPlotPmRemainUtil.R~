@@ -1,0 +1,33 @@
+library(ggplot2)
+
+#cat('Usage: barPlotPmRemainUtil(base) \n')
+barPlotPmRemainUtil <- function(){
+	base <- '/local/scratch/tanboxi/containerAllocationResults/twoLevels/'
+	base80 <- paste(base, 'Container80_realData_smallPM_OS5_tenVM/', sep='')
+	base200 <- paste(base, 'Container200_realData_smallPM_OS5_tenVM/', sep = '')
+	base500 <- paste(base, 'Container500_realData_smallPM_OS5_tenVM/', sep = '')
+
+	
+	pmRemain80Path <- paste(base80, '/pmRemain.csv', sep='')
+	pmRemain200Path <- paste(base200, '/pmRemain.csv', sep='')
+	pmRemain500Path <- paste(base500, '/pmRemain.csv', sep='')
+
+
+	pmUtil80Path <- paste(base80, '/pmUtil.csv', sep='')
+	pmUtil200Path <- paste(base200, '/pmUtil.csv', sep='')
+	pmUtil500Path <- paste(base500, '/pmUtil.csv', sep='')
+
+
+	pmRemain80 <- read.csv(pmRemain80Path, header=F, sep=',')
+	pmRemain200 <- read.csv(pmRemain200Path, header=F, sep=',')
+	pmRemain500 <- read.csv(pmRemain500Path, header=F, sep=',')
+
+
+	pmUtil80 <- read.csv(pmUtil80Path, header=F, sep=',')
+	pmUtil200 <- read.csv(pmUtil200Path, header=F, sep=',')
+	pmUtil500 <- read.csv(pmUtil500Path, header=F, sep=',')
+
+
+	print(pmRemain)
+
+}

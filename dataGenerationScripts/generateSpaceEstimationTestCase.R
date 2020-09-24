@@ -1,0 +1,102 @@
+source('generateTaskCases.R')
+cat("Usage: generateApplicationMatrix(numOfApp = 100, numOfVm = 10|20, seed=1)\n")
+generateApplicationMatrix <- function(numOfApp, numOfVm, seed){
+	set.seed(seed)
+
+	serviceNum <- function(service){
+		num <- 0
+		for(i in seq(service)){
+			if(service[i] != 0){
+				num <- num + 1
+			}
+		}
+		num
+	}
+
+	translation <- function(applicationMatrix, microServiceResource, filename, testCaseSizePath){
+		applicationNum <- nrow(applicationMatrix)
+		completeResource <- data.frame()
+		totalMicroServiceCount <- 1
+		application <- vector()
+		microService <- vector()
+		replicaNum <- vector()
+		for(appCount in seq(applicationNum)){
+			#cat("application = ", appCount, '\n')
+			microServiceNum <- sum(applicationMatrix[appCount, ])
+			application <- c(application, rep(appCount, microServiceNum))
+
+			# how many microService for an application
+			microCount <- sum(applicationMatrix[appCount, ] != 0)
+			for(i in seq(microCount)){
+				microService <- c(microService, rep(i, applicationMatrix[appCount, i]))
+			}
+
+			for(microServiceCount in seq(ncol(applicationMatrix))){
+				#cat("microServiceCount = ", microServiceCount, '\n')
+				if(applicationMatrix[appCount, microServiceCount] == 0) next
+				replicaNum <- c(replicaNum, seq(applicationMatrix[appCount, microServiceCount]))
+				replicas <- applicationMatrix[appCount, microServiceCount]
+				for(i in seq(replicas)){
+					completeResource <- rbind(completeResource, microServiceResource[totalMicroServiceCount, ])
+				}
+				totalMicroServiceCount <- totalMicroServiceCount + 1
+			}
+		}
+		completeResource <- cbind(completeResource, application, microService, replicaNum)
+
+		#print(completeResource)
+		write.table(completeResource, filename, row.names=F, col.names=F, quote=F, sep=',')
+		print(nrow(completeResource))
+		write.table(nrow(completeResource), testCaseSizePath, row.names=F, col.names=F, quote=F)
+	}
+	
+	generateSingleService <- function(maximumServiceNum, maximumReplicasNum){
+		services <- sample(maximumServiceNum, 1, replace=T)
+		replicas <- rep(0, maximumServiceNum)
+		for(i in seq(services)){
+			replicas[i] <- sample(seq(2, maximumReplicasNum), 1, replace=T)
+		}
+		replicas
+	}
+
+	maximumServiceNum <- 5
+	maximumReplicasNum <- 5
+	totalServiceNum <- 0
+	data <- data.frame()
+	for(i in seq(numOfApp)){
+		service <- generateSingleService(maximumServiceNum, maximumReplicasNum)
+		data <- rbind(data, service)
+		totalServiceNum <- totalServiceNum + serviceNum(service)
+	}
+
+
+	write.table(data, paste("micro-service/application", numOfApp, "_", seed, ".csv", sep=''), row.names = F, col.names = F, sep=',')
+
+
+	if(numOfVm == 10){
+		testCaseName <- paste('micro-service/testCase', numOfApp, '_ten_', seed, '.csv', sep='')
+		testCaseSizePath <- paste('micro-service/testCaseSize', numOfApp, '_ten_', seed, '.csv', sep='')
+		generateTask(1, 6, totalServiceNum, 0, paste('micro-service/testCase', numOfApp, '_ten_', seed, '.csv', sep=''))
+		resource <- read.csv(testCaseName, header=F, sep=',')
+		translation(data, resource, testCaseName, testCaseSizePath)
+	}
+	else{
+		testCaseName <- paste('micro-service/testCase', numOfApp, '_twenty_', seed, '.csv', sep='')
+		testCaseSizePath <- paste('micro-service/testCaseSize', numOfApp, '_twenty_', seed, '.csv', sep='')
+		generateTask(1, 7, totalServiceNum, 0, paste('micro-service/testCase', numOfApp, '_twenty_', seed,  '.csv', sep=''))
+		resource <- read.csv(testCaseName, header=F, sep=',')
+		translation(data, resource, testCaseName, testCaseSizePath)
+	}
+
+
+
+	
+
+
+
+
+
+}
+
+
+
