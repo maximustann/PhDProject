@@ -8,7 +8,7 @@ nsgaii_mutationRate=0.1
 nsgaii_optimization=0
 nsgaii_tournamentSize=2
 nsgaii_eliteSize=5
-nsgaii_popSize=50
+nsgaii_popSize=100
 nsgaii_maxGen=100
 permutationNum=50
 

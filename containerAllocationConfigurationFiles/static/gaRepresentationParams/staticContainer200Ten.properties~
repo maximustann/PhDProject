@@ -11,7 +11,7 @@ optimization=0
 tournamentSize=2
 eliteSize=5
 popSize=100
-maxGen=300
+maxGen=100
 
 # problem parameters
 k=0.7
@@ -25,17 +25,16 @@ testCaseSize=200
 testCaseName=Container200_ten
 
 # test case addresses
-base=/home/tanboxi/IdeaProjects/MaxTan/data
+base=/home/tanboxi/PH.D_project/data
 pmSize=PMConfig_small.csv
 
 # result addresses
 resultBase=./
 
 energyFile=energy.csv
-aveEnergyFile=aveEnergy.csv
-aveCpuMemUtilFile=aveCpuMemUtil.csv
+cpuMemUtilFile=cpuMemUtil.csv
 wastedResourceFile=wastedResource.csv
-aveNumOfPmFile=aveNumOfPm.csv
-aveNumOfVmFile=aveNumOfVm.csv
+numOfPmFile=numOfPm.csv
+numOfVmFile=numOfVm.csv
 convergenceCurveFile=convergenceCurve.csv
-aveTimeFile=aveTime.csv
+timeFile=time.csv

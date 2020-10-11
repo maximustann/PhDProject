@@ -6,7 +6,7 @@ seed=2344
 ubound=2
 lbound=0
 crossoverRate=0.7
-mutationRate=0.1
+mutationRate=0.8
 optimization=0
 tournamentSize=2
 eliteSize=5
@@ -25,17 +25,16 @@ testCaseSize=1500
 testCaseName=Container1500_ten
 
 # test case addresses
-base=/home/tanboxi/IdeaProjects/MaxTan/data
+base=/home/tanboxi/PH.D_project/data
 pmSize=PMConfig_small.csv
 
 # result addresses
 resultBase=./
 
 energyFile=energy.csv
-aveEnergyFile=aveEnergy.csv
-aveCpuMemUtilFile=aveCpuMemUtil.csv
+cpuMemUtilFile=cpuMemUtil.csv
 wastedResourceFile=wastedResource.csv
-aveNumOfPmFile=aveNumOfPm.csv
-aveNumOfVmFile=aveNumOfVm.csv
+numOfPmFile=numOfPm.csv
+numOfVmFile=numOfVm.csv
 convergenceCurveFile=convergenceCurve.csv
-aveTimeFile=aveTime.csv
+timeFile=time.csv
