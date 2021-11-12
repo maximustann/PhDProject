@@ -1,11 +1,16 @@
 #!/bin/tcsh
 
-echo "Usage: ./run.sh [algorithm = NSGAII_NSGGA | LNS_FF | NSGAII_Spread | LNS_NSGGA ] [appSize = app100 | app150 | app200] [vmTypes = ten | twenty]"
 
 @ run=40
 @ i=0
 
+if($1 =='') then
+	echo "Usage: ./run.sh [[appSize = app100 | app150 | app200]"
+	exit
+endif
+
+
 while ($i < $run)
-	qsub ./twenty_lnsBPSO.sh $1 $2 $i $3
+	qsub ./bpso.sh 'LNS_BPSO' $1 $i 'twenty'
 	@ i++
 end

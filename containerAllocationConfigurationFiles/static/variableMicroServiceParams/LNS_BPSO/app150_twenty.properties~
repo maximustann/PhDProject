@@ -2,7 +2,7 @@
 ### alns
 alnsUbound=5
 alnsLbound=2
-alnsMaxGen=1000
+alnsMaxGen=10000
 tabuSize=20
 improvementThreshold=20
 replicaChangePercentage=0.3
@@ -42,6 +42,9 @@ vmMemOverhead=200
 numOfVmTypesNames=twenty
 numOfVmTypes=20
 
+# number of Objectives, availability and energy
+numOfObjectives=2
+
 # balancedOrNot defines balanced and unbalanced VMs,
 # the balanced VM settings are under LVMePM while the unbalanced VM settings are under LVMnePM
 # in most cases, we use the unbalanced VM settings
@@ -66,14 +69,16 @@ microServiceSize=437
 
 #################### result addresses ###################
 resultBase=./
-
-replicaNumFile=replicaNum.csv
-paretoFrontFile=paretoFront.csv
-energyFile=energy.csv
-cpuMemUtilFile=cpuMemUtil.csv
-wastedResourceFile=wastedResource.csv
-numOfPmFile=numOfPm.csv
-numOfVmFile=numOfVm.csv
-convergenceCurveFile=convergenceCurve.csv
-timeFile=time.csv
+suffix=.csv
+replicaNumFile=replicaNum
+paretoFrontFile=paretoFront
+replicaFitnessFile=replicaFitness
+vmTypeDistFile=vmTypeDist
+energyFile=energy
+cpuMemUtilFile=cpuMemUtil
+wastedResourceFile=wastedResource
+numOfPmFile=numOfPm
+numOfVmFile=numOfVm
+convergenceCurveFile=convergenceCurve
+timeFile=time
 

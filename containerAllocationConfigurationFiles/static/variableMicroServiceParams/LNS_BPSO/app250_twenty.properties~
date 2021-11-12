@@ -1,0 +1,88 @@
+############## algorithm parameters  ###############
+### alns
+alnsUbound=5
+alnsLbound=2
+alnsMaxGen=10000
+tabuSize=20
+improvementThreshold=20
+replicaChangePercentage=0.3
+allocationChangePercentage=0.4
+
+### bpso
+popSize=100
+bpsoMaxGen=100
+bpsoLbound=0
+bpsoUbound=2
+w=0.689
+c1=1.427
+c2=1.427
+clampFactor=0.4
+optimization=0
+nearestN=2
+
+
+
+############## problem  parameters  ###############
+
+# PM settings
+
+base=/home/tanboxi/PH.D_project/data
+configPath=/baseConfig/
+pmConfig=PMConfig
+pmSize=small
+k=0.7
+crushPro=0.025
+
+# VM settings
+
+vmConfig=VMConfig
+
+vmCpuOverheadRate=0.1
+vmMemOverhead=200
+
+numOfVmTypesNames=twenty
+numOfVmTypes=20
+
+
+# number of Objectives, availability and energy
+numOfObjectives=2
+
+
+# balancedOrNot defines balanced and unbalanced VMs,
+# the balanced VM settings are under LVMePM while the unbalanced VM settings are under LVMnePM
+# in most cases, we use the unbalanced VM settings
+balancedOrNot=LVMnePM
+
+
+# test case addresses
+containerDataPath=containerData
+staticDynamic=static
+experimentClass=multi_objective
+testCaseName=testCase250
+
+
+applicationSize=250
+applicationName=application250
+maximumServiceNum=5
+
+microServiceSize=745
+
+
+
+
+#################### result addresses ###################
+resultBase=./
+
+suffix=.csv
+replicaNumFile=replicaNum
+paretoFrontFile=paretoFront
+replicaFitnessFile=replicaFitness
+vmTypeDistFile=vmTypeDist
+energyFile=energy
+cpuMemUtilFile=cpuMemUtil
+wastedResourceFile=wastedResource
+numOfPmFile=numOfPm
+numOfVmFile=numOfVm
+convergenceCurveFile=convergenceCurve
+timeFile=time
+

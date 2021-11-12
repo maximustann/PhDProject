@@ -2,7 +2,7 @@
 
 ubound=5
 lbound=2
-maxGen=1000
+maxGen=50000
 tabuSize=20
 improvementThreshold=20
 replicaChangePercentage=0.3

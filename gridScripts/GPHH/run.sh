@@ -1,11 +1,14 @@
 #!/bin/tcsh
 
-echo "Usage: ./run.sh [vmtypes = TEN | TWENTY] [OSNUM = 5] [dataset = BITBRAINS | AUVERGRID]"
-
+if ($1 == '' || $2 == '' || $3 == '' | $4 == '') then
+	echo "Usage: ./run.sh [gphh.sh | gphhStat.sh] [vmtypes = TEN | TWENTY] [OSNUM = 5] [dataset = BITBRAINS | AUVERGRID]"
+	exit
+endif
 @ run=40
 @ i=0
 
+
 while ($i < $run)
-	qsub ./gphh.sh $1 $2 $3 $i
+	qsub $1 $2 $3 $4 $i
 	@ i++
 end

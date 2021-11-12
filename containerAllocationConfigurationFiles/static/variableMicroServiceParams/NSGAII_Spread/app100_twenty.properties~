@@ -57,7 +57,7 @@ microServiceSize=295
 
 #################### result addresses ###################
 resultBase=./
-
+suffix=.csv
 replicaNumFile=replicaNum.csv
 paretoFrontFile=paretoFront.csv
 energyFile=energy.csv

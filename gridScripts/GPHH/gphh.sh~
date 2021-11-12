@@ -14,10 +14,10 @@ SEED=$4
 SETTINGNAME=$CONTAINERNUM$OSNUM$VMTYPES\_$DATASET
 JAR_PATH="/home/tanboxi/PH.D_project/algorithm_jar/obj2_dynamic_gp/"
 DATA_PATH="/home/tanboxi/PH.D_project/data"
-OS_PATH=OSData/$OSNUM"Container"$CONTAINERNUM
+OS_PATH=OSData/dynamic/$OSNUM"Container"$CONTAINERNUM
 OSPRO_PATH=OSPro
 BASE_CONFIG="baseConfig/"
-TESTCASE_PATH=containerData/Container$CONTAINERNUM\_$DATASET\_$VMTYPES
+TESTCASE_PATH=containerData/dynamic/Container$CONTAINERNUM\_$DATASET\_$VMTYPES
 INIT_PATH=InitEnv/$OSNUM/Container$CONTAINERNUM\_$DATASET\_$VMTYPES
 RESULT="/vol/grid-solar/sgeusers/tanboxi"
 

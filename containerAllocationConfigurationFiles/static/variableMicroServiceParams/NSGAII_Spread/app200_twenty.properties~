@@ -8,7 +8,7 @@ mutationRate=0.1
 optimization=0
 tournamentSize=2
 eliteSize=5
-popSize=50
+popSize=100
 maxGen=100
 permutationNum=50
 
@@ -57,14 +57,14 @@ microServiceSize=585
 
 #################### result addresses ###################
 resultBase=./
-
-replicaNumFile=replicaNum.csv
-paretoFrontFile=paretoFront.csv
-energyFile=energy.csv
-cpuMemUtilFile=cpuMemUtil.csv
-wastedResourceFile=wastedResource.csv
-numOfPmFile=numOfPm.csv
-numOfVmFile=numOfVm.csv
-convergenceCurveFile=convergenceCurve.csv
-timeFile=time.csv
+suffix=.csv
+replicaNumFile=replicaNum
+paretoFrontFile=paretoFront
+energyFile=energy
+cpuMemUtilFile=cpuMemUtil
+wastedResourceFile=wastedResource
+numOfPmFile=numOfPm
+numOfVmFile=numOfVm
+convergenceCurveFile=convergenceCurve
+timeFile=time
 

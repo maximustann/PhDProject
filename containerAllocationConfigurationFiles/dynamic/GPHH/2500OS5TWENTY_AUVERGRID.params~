@@ -28,11 +28,11 @@ readFileEnd         = 100
 
 
 testCasePath        = ./containerData/Container2500_AUVERGRID_TWENTY/testCase
-osPath              = ./OSData/OS4Container2500/testCase
+osPath              = ./OSData/OS5Container2500/testCase
 vmConfigPath        = ./baseConfig/VMConfig/LVMnePM/VMConfig_twenty.csv
-osProPath           = ./OSPro/OS4/probability.csv
+osProPath           = ./OSPro/OS5/probability.csv
 #benchmarkPath       = /benchmark/realworld/subEnergy.csv
-initEnvPath         = ./InitEnv/OS4/Container2500_AUVERGRID_TWENTY/
+initEnvPath         = ./InitEnv/OS5/Container2500_AUVERGRID_TWENTY/
 
 # We have nine functions in the function set. They are:
 gp.fs.0.size = 10
@@ -58,6 +58,8 @@ gp.fs.0.func.8 = functions.VMCPUOverhead
 gp.fs.0.func.8.nc = nc0
 gp.fs.0.func.9 = functions.VMMEMOverhead
 gp.fs.0.func.9.nc = nc0
+#gp.fs.0.func.10 = functions.Frequency
+#gp.fs.0.func.10.nc = nc0
 #gp.fs.0.func.10 = functions.GlobalCPUWaste
 #gp.fs.0.func.10.nc = nc0
 #gp.fs.0.func.11 = functions.GlobalMEMWaste

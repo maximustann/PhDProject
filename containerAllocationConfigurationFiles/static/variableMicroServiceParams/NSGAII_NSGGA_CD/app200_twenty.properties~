@@ -1,0 +1,94 @@
+############## algorithm parameters  ###############
+
+# For First-Step NSGA-II
+nsgaii_ubound=5
+nsgaii_lbound=2
+nsgaii_crossoverRate=0.7
+nsgaii_mutationRate=0.1
+nsgaii_optimization=0
+nsgaii_tournamentSize=2
+nsgaii_eliteSize=5
+nsgaii_popSize=100
+nsgaii_maxGen=100
+permutationNum=50
+
+# For Second-Step NS-GGA
+nsgga_ubound=5
+nsgga_lbound=2
+nsgga_crossoverRate=0.7
+nsgga_mutationRate=0.1
+nsgga_optimization=0
+nsgga_tournamentSize=2
+nsgga_eliteSize=5
+nsgga_popSize=100
+nsgga_maxGen=100
+
+# How many times that we want to run the nsgga for constructing a pareto front,
+# Currently, this number is the same with nClusters
+nsgga_nRepeats=3
+
+# For K-means
+nClusters=3
+
+# nTopCD
+nTopCD=3
+
+############## problem  parameters  ###############
+
+# PM settings
+
+base=/home/tanboxi/PH.D_project/data
+configPath=/baseConfig/
+pmConfig=PMConfig
+pmSize=small
+k=0.7
+crushPro=0.025
+
+# VM settings
+
+vmConfig=VMConfig
+
+vmCpuOverheadRate=0.1
+vmMemOverhead=200
+
+numOfVmTypesNames=twenty
+numOfVmTypes=20
+
+# balancedOrNot defines balanced and unbalanced VMs,
+# the balanced VM settings are under LVMePM while the unbalanced VM settings are under LVMnePM
+# in most cases, we use the unbalanced VM settings
+balancedOrNot=LVMnePM
+
+
+# test case addresses
+containerDataPath=containerData
+staticDynamic=static
+experimentClass=multi_objective
+testCaseName=testCase200
+
+
+applicationSize=200
+applicationName=application200
+maximumServiceNum=5
+
+microServiceSize=585
+
+
+
+
+#################### result addresses ###################
+resultBase=./
+suffix=.csv
+replicaNumFile=replicaNum
+replicaFitnessFile=replicaFitness
+selectedReplicaFitnessFile=selectedReplicaFitness
+frontsFile=front
+paretoFrontFile=paretoFront
+energyFile=energy
+cpuMemUtilFile=cpuMemUtil
+wastedResourceFile=wastedResource
+numOfPmFile=numOfPm
+numOfVmFile=numOfVm
+convergenceCurveFile=convergenceCurve
+timeFile=time
+
